@@ -1,8 +1,203 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "anigoose-server": {
+      "root": "apps/anigoose-server",
+      "sourceRoot": "apps/anigoose-server/src",
+      "projectType": "application",
+      "prefix": "anigoose-server",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/anigoose-server",
+            "main": "apps/anigoose-server/src/main.ts",
+            "tsConfig": "apps/anigoose-server/tsconfig.app.json",
+            "assets": ["apps/anigoose-server/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/anigoose-server/src/environments/environment.ts",
+                  "with": "apps/anigoose-server/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "anigoose-server:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/anigoose-server/.eslintrc",
+            "tsConfig": [
+              "apps/anigoose-server/tsconfig.app.json",
+              "apps/anigoose-server/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/anigoose-server/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/anigoose-server/jest.config.js",
+            "tsConfig": "apps/anigoose-server/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "anigoose-client": {
+      "root": "apps/anigoose-client",
+      "sourceRoot": "apps/anigoose-client/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/anigoose-client",
+            "index": "apps/anigoose-client/src/index.html",
+            "main": "apps/anigoose-client/src/main.tsx",
+            "polyfills": "apps/anigoose-client/src/polyfills.ts",
+            "tsConfig": "apps/anigoose-client/tsconfig.app.json",
+            "assets": [
+              "apps/anigoose-client/src/favicon.ico",
+              "apps/anigoose-client/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/anigoose-client/src/environments/environment.ts",
+                  "with": "apps/anigoose-client/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "anigoose-client:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "anigoose-client:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/anigoose-client/.eslintrc",
+            "tsConfig": [
+              "apps/anigoose-client/tsconfig.app.json",
+              "apps/anigoose-client/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/anigoose-client/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/anigoose-client/jest.config.js",
+            "tsConfig": "apps/anigoose-client/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "anigoose-client-e2e": {
+      "root": "apps/anigoose-client-e2e",
+      "sourceRoot": "apps/anigoose-client-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/anigoose-client-e2e/cypress.json",
+            "tsConfig": "apps/anigoose-client-e2e/tsconfig.e2e.json",
+            "devServerTarget": "anigoose-client:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "anigoose-client:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/anigoose-client-e2e/.eslintrc",
+            "tsConfig": ["apps/anigoose-client-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/anigoose-client-e2e/**"]
+          }
+        }
+      }
+    },
+    "core": {
+      "root": "libs/core",
+      "sourceRoot": "libs/core/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/core/.eslintrc",
+            "tsConfig": [
+              "libs/core/tsconfig.lib.json",
+              "libs/core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/core/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/core/jest.config.js",
+            "tsConfig": "libs/core/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/react"
   },
   "schematics": {
     "@nrwl/workspace": {
@@ -17,9 +212,15 @@
     },
     "@nrwl/react": {
       "application": {
-        "linter": "eslint"
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
       },
       "library": {
+        "style": "styled-components",
         "linter": "eslint"
       }
     },
@@ -59,5 +260,6 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "defaultProject": "anigoose-server"
 }

@@ -10,5 +10,19 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "anigoose-server": {
+      "tags": []
+    },
+    "anigoose-client": {
+      "tags": []
+    },
+    "anigoose-client-e2e": {
+      "tags": [],
+      "implicitDependencies": ["anigoose-client"]
+    },
+    "core": {
+      "tags": []
+    }
+  }
 }
