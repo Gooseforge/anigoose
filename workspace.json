@@ -1,63 +1,6 @@
 {
   "version": 1,
   "projects": {
-    "anigoose-server": {
-      "root": "apps/anigoose-server",
-      "sourceRoot": "apps/anigoose-server/src",
-      "projectType": "application",
-      "prefix": "anigoose-server",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/anigoose-server",
-            "main": "apps/anigoose-server/src/main.ts",
-            "tsConfig": "apps/anigoose-server/tsconfig.app.json",
-            "assets": ["apps/anigoose-server/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/anigoose-server/src/environments/environment.ts",
-                  "with": "apps/anigoose-server/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "anigoose-server:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "config": "apps/anigoose-server/.eslintrc",
-            "tsConfig": [
-              "apps/anigoose-server/tsconfig.app.json",
-              "apps/anigoose-server/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/anigoose-server/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/anigoose-server/jest.config.js",
-            "tsConfig": "apps/anigoose-server/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "anigoose-client": {
       "root": "apps/anigoose-client",
       "sourceRoot": "apps/anigoose-client/src",
@@ -108,7 +51,8 @@
         "serve": {
           "builder": "@nrwl/web:dev-server",
           "options": {
-            "buildTarget": "anigoose-client:build"
+            "buildTarget": "anigoose-client:build",
+            "proxyConfig": "apps/anigoose-client/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -163,6 +107,63 @@
             "config": "apps/anigoose-client-e2e/.eslintrc",
             "tsConfig": ["apps/anigoose-client-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/anigoose-client-e2e/**"]
+          }
+        }
+      }
+    },
+    "anigoose-server": {
+      "root": "apps/anigoose-server",
+      "sourceRoot": "apps/anigoose-server/src",
+      "projectType": "application",
+      "prefix": "anigoose-server",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/anigoose-server",
+            "main": "apps/anigoose-server/src/main.ts",
+            "tsConfig": "apps/anigoose-server/tsconfig.app.json",
+            "assets": ["apps/anigoose-server/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/anigoose-server/src/environments/environment.ts",
+                  "with": "apps/anigoose-server/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "anigoose-server:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/anigoose-server/.eslintrc",
+            "tsConfig": [
+              "apps/anigoose-server/tsconfig.app.json",
+              "apps/anigoose-server/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/anigoose-server/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/anigoose-server/jest.config.js",
+            "tsConfig": "apps/anigoose-server/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
@@ -261,5 +262,5 @@
       }
     }
   },
-  "defaultProject": "anigoose-server"
+  "defaultProject": "anigoose-client"
 }

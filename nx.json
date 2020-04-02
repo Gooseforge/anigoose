@@ -11,9 +11,6 @@
     "nx.json": "*"
   },
   "projects": {
-    "anigoose-server": {
-      "tags": []
-    },
     "anigoose-client": {
       "tags": []
     },
@@ -22,6 +19,9 @@
       "implicitDependencies": ["anigoose-client"]
     },
     "core": {
+      "tags": []
+    },
+    "anigoose-server": {
       "tags": []
     }
   }
