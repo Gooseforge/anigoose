@@ -3,7 +3,9 @@
   "compilerOptions": {
     "types": ["node", "jest"],
     "emitDecoratorMetadata": true,
-    "target": "es2015"
+    "experimentalDecorators": true,
+    "target": "es2015",
+    "module": "commonjs"
   },
   "include": ["**/*.ts"]
 }

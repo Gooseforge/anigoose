@@ -1,10 +1,9 @@
-import { DatabaseType } from 'typeorm';
+// import { DatabaseType } from 'typeorm';
 
 export const environment = {
   production: false,
   database: {
-    type: 'sqlite' as DatabaseType,
-    name: 'anigoose_db',
+    database: 'anigoose_db.sqlite',
     host: '',
     port: 3000,
     username: '',

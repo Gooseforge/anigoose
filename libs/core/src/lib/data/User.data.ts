@@ -44,3 +44,15 @@ export class UserAuthenticationDTO {
   @IsNotEmpty()
   token: string;
 }
+
+/**
+ * UserTokenPayload
+ * @description Used for JWT payload verification.
+ */
+export class UserTokenPayload {
+  @IsNotEmpty()
+  id: number;
+
+  @IsNotEmpty()
+  username: string;
+}

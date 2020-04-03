@@ -10,7 +10,7 @@ const ApiClient = Axios.create({
 export const SetUserToken = (token: string) =>
   (ApiClient.defaults.headers['Authorization'] = `Bearer ${token}`);
 
-export const UserLogin = ({ username, password }) =>
+export const LoginUser = ({ username, password }) =>
   ApiClient.post('/auth/login', { username, password })
     .then(response => {
       const { token } = response.data;

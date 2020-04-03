@@ -10,7 +10,7 @@ import {
 
 import { AuthActions, ApplicationActions } from '../actions';
 import { from, of } from 'rxjs';
-import { UserLogin } from '../../services/Api.service';
+import { LoginUser } from '../../services/Api.service';
 import { NotificationType } from '@anigoose/core';
 import { AnyState } from '../reducers';
 
@@ -21,7 +21,7 @@ export const LoginEpic: Epic<Action, Action, AnyState> = (action$, store) =>
     mergeMap(([action, state]) => {
       if (state.User.authenticated) return;
 
-      return from(UserLogin({ ...action.payload })).pipe(
+      return from(LoginUser({ ...action.payload })).pipe(
         map(AuthActions.AuthSuccess),
         catchError(() => {
           return of(

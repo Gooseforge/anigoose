@@ -5,6 +5,10 @@
 /tmp
 /out-tsc
 
+# test environment database (BECAUSE I NEVER FIGURED OUT HOW ENV_PATH WORKS)
+anigoose_db
+anigoose_db.*
+
 # dependencies
 /node_modules
 
