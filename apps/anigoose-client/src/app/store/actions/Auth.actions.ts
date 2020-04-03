@@ -12,3 +12,10 @@ export const Register = createAction(
     payload: { username, email, password }
   })
 );
+
+export const AuthSuccess = createAction(
+  'auth/AuthSuccess',
+  ({ id, username, token }) => ({
+    payload: { id, username, token }
+  })
+);
